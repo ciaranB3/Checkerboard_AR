@@ -42,6 +42,10 @@ if __name__ == "__main__":
 
 	cap = cv2.VideoCapture(0)
 
+	# Define the codec and create VideoWriter object
+	fourcc = cv2.VideoWriter_fourcc(*'XVID')
+	out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
+
 	while(True):
 
 		#capture a frame
@@ -75,6 +79,7 @@ if __name__ == "__main__":
 			warp[warp==0.0] = img[warp==0.0]
 			img = warp
 
+		out.write(img)
 		cv2.imshow('img',img)      
 		    
 		if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -82,4 +87,5 @@ if __name__ == "__main__":
 	        
 	# release everything
 	cap.release()
+	out.release()
 	cv2.destroyAllWindows()
